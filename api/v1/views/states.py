@@ -6,6 +6,7 @@ from models import storage
 from models.state import State
 import json
 
+
 def init_states():
     from api.v1.views import app_views
 
@@ -14,7 +15,7 @@ def init_states():
     def get_states(id=None):
         if id is not None:
             if storage.get("State", id) is not None:
-                return jsonify(storage.get("State",id).to_dict())
+                return jsonify(storage.get("State", id).to_dict())
             else:
                 abort(404)
         states = []
@@ -37,7 +38,7 @@ def init_states():
             abort(404)
         if type(request.json) is not dict:
             abort(400, 'Not a JSON')
-        if not 'name' in request.json:
+        if 'name' not in request.json:
             abort(400, 'Missing name')
         state = State(**request.get_json())
         storage.new(state)
@@ -52,8 +53,8 @@ def init_states():
         if storage.get("State", id) is not None:
             state = storage.get("State", id)
             for key, value in request.json.items():
-                setattr(state, key, value)                
-            storage.save() 
+                setattr(state, key, value)
+            storage.save()
         else:
             abort(404)
         return jsonify(storage.get("State", state.id).to_dict()), 201
