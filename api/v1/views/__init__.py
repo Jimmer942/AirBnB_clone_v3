@@ -11,3 +11,4 @@ app_views = Blueprint('/api/v1', __name__)
 
 index.init()
 states.init_states()
+cities.init_cities()
