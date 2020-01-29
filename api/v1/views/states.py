@@ -9,7 +9,14 @@ import json
 def init_states():
     from api.v1.views import app_views
 
-    @app_views.route('/states', strict_slashes=False)
+    @app_views.route('/states', methods=['GET'], strict_slashes=False)
+    def get_all_states():
+        """ Get all states """
+        states = []
+        for state in storage.all("State").values():
+            states.append(state.to_dict())
+        return jsonify(states)
+
     @app_views.route('/states/<id>',  methods=['GET'], strict_slashes=False)
     def get_states(id=None):
         """ Get states """
@@ -18,10 +25,6 @@ def init_states():
                 return jsonify(storage.get("State", id).to_dict())
             else:
                 abort(404)
-        states = []
-        for state in storage.all("State").values():
-            states.append(state.to_dict())
-        return jsonify(states)
 
     @app_views.route('/states/<id>', methods=['DELETE'], strict_slashes=False)
     def delete_state(id=None):
