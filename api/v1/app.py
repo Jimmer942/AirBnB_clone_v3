@@ -9,6 +9,8 @@ app = Flask(__name__)
 
 app.register_blueprint(app_views, url_prefix='/api/v1')
 
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+
 
 @app.teardown_appcontext
 def teardown_db(self):
