@@ -48,9 +48,9 @@ def init_states():
     def update_state(id):
         """ Update states """
         if not request.json:
-            abort(404)
+            return jsonify({"error": "Not a Json"}), 400    
         if type(request.json) is not dict:
-            abort(400, 'Not a JSON')
+            return jsonify({"error": "Missing name"}), 400
         if storage.get("State", id) is not None:
             state = storage.get("State", id)
             for key, value in request.json.items():
