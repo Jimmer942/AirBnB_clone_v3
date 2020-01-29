@@ -37,11 +37,9 @@ def init_states():
     def create_state():
         """ Create states """
         if not request.json:
-            abort(404)
-        if type(request.json) is not dict:
-            abort(400, 'Not a JSON')
+            return jsonify({"error": "Not a Json"}), 400
         if 'name' not in request.json:
-            abort(400, 'Missing name')
+            return jsonify({"error": "Missing name"}), 400
         state = State(**request.get_json())
         storage.new(state)
         return jsonify(storage.get("State", state.id).to_dict()), 201
