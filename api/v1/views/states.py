@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-'''
-'''
+"""  State RestFul API """
 from flask import Blueprint, jsonify, abort, request
 from models import storage
 from models.state import State
@@ -11,8 +10,9 @@ def init_states():
     from api.v1.views import app_views
 
     @app_views.route('/states', strict_slashes=False)
-    @app_views.route('/states/<id>', strict_slashes=False)
+    @app_views.route('/states/<id>',  methods=['GET'], strict_slashes=False)
     def get_states(id=None):
+        """ Get states """
         if id is not None:
             if storage.get("State", id) is not None:
                 return jsonify(storage.get("State", id).to_dict())
@@ -25,6 +25,7 @@ def init_states():
 
     @app_views.route('/states/<id>', methods=['DELETE'], strict_slashes=False)
     def delete_state(id=None):
+        """ Delete states """
         if id is not None:
             if storage.get("State", id) is not None:
                 storage.delete(storage.get("State", id))
@@ -34,6 +35,7 @@ def init_states():
 
     @app_views.route('/states/', methods=['POST'], strict_slashes=False)
     def create_state():
+        """ Create states """
         if not request.json:
             abort(404)
         if type(request.json) is not dict:
@@ -46,6 +48,7 @@ def init_states():
 
     @app_views.route('/states/<id>', methods=['PUT'], strict_slashes=False)
     def update_state(id):
+        """ Update states """
         if not request.json:
             abort(404)
         if type(request.json) is not dict:
