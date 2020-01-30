@@ -2,7 +2,7 @@
 """  place RestFul API """
 from flask import Blueprint, jsonify, abort, request
 from models import storage
-from models.state import State
+from models.place import Place
 import json
 
 
@@ -46,13 +46,14 @@ def init_places():
         if not request.json:
             return jsonify({"error": "Not a Json"}), 400
         if 'user_id' not in request.json:
-            return 'Missing user_id', 400
-        user = storage.get("User", request.json[user_id])
+            return jsonify({"error": "Missing user_id"}), 400
+        user = storage.get("User", request.json['user_id'])
         if user is None:
             abort(404)
         if 'name' not in request.json:
             return 'Missing name', 400
         place = Place(**request.json)
+        place.city_id = id
         storage.new(place)
         return jsonify(storage.get("Place", place.id).to_dict()), 201
 
