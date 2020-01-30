@@ -24,12 +24,9 @@ def init_cities():
             abort(404)
 
     @app_views.route('/cities/<city_id>', methods=['GET'])
-    def get_city(city_id=None):
+    def get_city(city_id):
         """ Get City """
-        if city_id is not None:
-            if storage.get("City", str(city_id)) is not None:
-                return jsonify(storage.get("City", str(city_id)).to_dict())
-            else:
-                abort(404)
-        else:
-            abort(404)
+        city = storage.get("City", str(city_id))
+        if city is not None:
+            return jsonify(city.to_dict())
+        abort(404)
