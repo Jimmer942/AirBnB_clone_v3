@@ -54,7 +54,7 @@ def init_places():
         if user is None:
             abort(404)
         if 'name' not in request.json:
-            return 'Missing name', 400
+            return jsonify({"error": "Missing name"}), 400
         place = Place(**request.json)
         place.city_id = id
         storage.new(place)
