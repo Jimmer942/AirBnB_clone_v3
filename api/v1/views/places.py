@@ -56,7 +56,7 @@ def init_places():
             abort(404)
         if 'name' not in request.json:
             return jsonify({"error": "Missing name"}), 400
-        place = Place(**request.json)
+        place = Place(**request.get_json())
         place.city_id = id
         storage.new(place)
         return jsonify(storage.get("Place", place.id).to_dict()), 201
