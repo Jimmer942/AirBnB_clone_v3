@@ -59,7 +59,7 @@ def init_places():
             return jsonify({"error": "Missing name"}), 400
         place = Place(**request.get_json())
         place.city_id = id
-        storage.new(place)
+        place.save()
         return jsonify(storage.get("Place", place.id).to_dict()), 201
 
     @app_views.route('/places/<id>', methods=['PUT'], strict_slashes=False)
@@ -79,5 +79,5 @@ def init_places():
                 pass
             else:
                 setattr(place, key, value)
-        storage.save()
+        place.save()
         return jsonify(storage.get("Place", place.id).to_dict()), 200
