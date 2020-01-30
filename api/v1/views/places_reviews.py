@@ -55,7 +55,7 @@ def init_places_reviews():
         if place is None:
             abort(404)
         if not request.json:
-            return jsonify({"error": "Not a Json"}), 400
+            return jsonify({"error": "Not a JSON"}), 400
         if 'user_id' not in request.json:
             return jsonify({"error": "Missing user_id"}), 400
         user = storage.get("User", request.json['user_id'])
@@ -79,7 +79,7 @@ def init_places_reviews():
         if review is None:
             abort(404)
         if not request.json:
-            return jsonify({"error": "Not a Json"}), 400
+            return jsonify({"error": "Not a JSON"}), 400
 
         for key, value in request.json.items():
             if (
