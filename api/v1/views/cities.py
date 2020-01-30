@@ -22,7 +22,7 @@ def init_cities():
             return jsonify(cities)
         else:
             abort(404)
-
+"""
     @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
     def get_city(city_id=None):
         """ Get City """
@@ -68,3 +68,4 @@ def init_cities():
         else:
             abort(404)
         return jsonify(storage.get("City", city.city_id).to_dict()), 200
+"""
