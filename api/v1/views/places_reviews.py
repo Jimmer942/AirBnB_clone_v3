@@ -14,7 +14,7 @@ def init_places_reviews():
                     methods=['GET'], strict_slashes=False)
     def get_reviews_by_place(place_id=None):
         """ Get reviews by place """
-        place = storage.get("Place", id)
+        place = storage.get("Place", place_id)
         if place is None:
             abort(404)
         reviews = []
@@ -28,7 +28,7 @@ def init_places_reviews():
                     strict_slashes=False)
     def get_review(review_id=None):
         '''get review by id'''
-        review = storage.get("Review", id)
+        review = storage.get("Review", review_id)
         if review is None:
             abort(404)
         return jsonify(review.to_dict())
