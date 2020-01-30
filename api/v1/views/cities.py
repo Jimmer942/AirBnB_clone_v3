@@ -12,9 +12,11 @@ def init_cities():
     from api.v1.views import app_views
 
     @app_views.route('/states/<state_id>/cities', methods=['GET'])
-    def get_all_cities_in_state(state_id=None):
+    def get_all_cities_in_state(state_id):
         """ Get all cities in a state"""
-        if id is not None and storage.get("State", id) is not None:
+        if state_id is None:
+            abort(404)
+        if storage.get("State", str(state_id)) is not None:
             cities = []
             for city in storage.all("City").values():
                 if city.state_id == str(state_id):
