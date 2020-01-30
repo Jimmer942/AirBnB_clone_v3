@@ -3,6 +3,7 @@
 from flask import Blueprint, jsonify, abort, request
 from models import storage
 from models.place import Place
+from models.review import Review
 import json
 
 
