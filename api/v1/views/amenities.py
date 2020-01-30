@@ -3,7 +3,7 @@
 
 from flask import Blueprint, jsonify, abort, request
 from models import storage
-from models.amenities import Amenities
+from models.amenity import Amenities
 
 import json
 
