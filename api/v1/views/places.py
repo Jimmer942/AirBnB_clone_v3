@@ -70,5 +70,5 @@ def init_places():
 
         for key, value in request.json.items():
             setattr(place, key, value)
-            storage.save()
+        storage.save()
         return jsonify(storage.get("Place", place.id).to_dict()), 200
