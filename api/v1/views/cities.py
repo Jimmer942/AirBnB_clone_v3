@@ -11,7 +11,8 @@ import json
 def init_cities():
     from api.v1.views import app_views
 
-    @app_views.route('/states/<state_id>/cities', methods=['GET'])
+    @app_views.route('/states/<state_id>/cities', methods=['GET'],
+                     strict_slashes=False)
     def get_all_cities_in_state(state_id):
         """ Get all cities in a state"""
         if state_id is None:
@@ -25,7 +26,7 @@ def init_cities():
         else:
             abort(404)
 
-    @app_views.route('/cities/<city_id>', methods=['GET'])
+    @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
     def get_city(city_id):
         """ Get City """
         city = storage.get("City", str(city_id))
@@ -33,7 +34,8 @@ def init_cities():
             return jsonify(city.to_dict())
         abort(404)
 
-    @app_views.route('/cities/<city_id>', methods=['DELETE'])
+    @app_views.route('/cities/<city_id>', methods=['DELETE'],
+                     strict_slashes=False)
     def delete_city(city_id):
         """ Delete city """
         if city_id is not None:
@@ -43,7 +45,8 @@ def init_cities():
                 abort(404)
         return jsonify({}), 200
 
-    @app_views.route('/states/<state_id>/cities', methods=['POST'])
+    @app_views.route('/states/<state_id>/cities', methods=['POST'],
+                     strict_slashes=False)
     def create_new_city(state_id):
         """ Create new city """
         if storage.get("State", str(state_id)) is None:
@@ -58,7 +61,7 @@ def init_cities():
         city.save()
         return jsonify(city.to_dict()), 201
 
-    @app_views.route('/cities/<city_id>', methods=['PUT'])
+    @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
     def update_city(city_id):
         """ Update city """
         if storage.get("City", str(city_id)) is None:
