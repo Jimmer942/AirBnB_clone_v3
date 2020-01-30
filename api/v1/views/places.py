@@ -43,6 +43,7 @@ def init_places():
                     '/cities/<id>/places',
                     methods=['POST'], strict_slashes=False)
     def create_place_by_city(id):
+        '''create a place'''
         city = storage.get("City", id)
         if city is None:
             abort(404)
@@ -62,6 +63,7 @@ def init_places():
 
     @app_views.route('/places/<id>', methods=['PUT'], strict_slashes=False)
     def update_place(id):
+        '''update a place'''
         place = storage.get("Place", id)
         if place is None:
             abort(404)
