@@ -7,6 +7,7 @@ import json
 
 
 def init_places():
+    ''''''
     from api.v1.views import app_views
 
     @app_views.route(
