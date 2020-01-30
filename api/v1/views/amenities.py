@@ -12,15 +12,12 @@ def init_amenities():
     from api.v1.views import app_views
 
     @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
-    def get_all_amenities():
-        """ Get all amenities"""
-        if storage.get("Amenities") is not None:
-            amenities = []
-            for amenity in storage.all("Amenities").values():
-                amenities.append(amenity.to_dict())
-            return jsonify(amenities)
-        else:
-            abort(404)
+    def get_all_Amenities():
+        """ Get all Amenities"""
+        amenities = []
+        for amenity in storage.all("Amenity").values():
+            amenities.append(amenity.to_dict())
+        return jsonify(amenities)
 
     @app_views.route('/amenities/<amenity_id>', methods=['GET'],
                      strict_slashes=False)
