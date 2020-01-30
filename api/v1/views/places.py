@@ -12,7 +12,7 @@ def init_places():
     @app_views.route(
                     '/cities/<id>/places',
                     methods=['GET'], strict_slashes=False)
-    def get_places_by_citie(id):
+    def get_places_by_citie(id=None):
         """ Get places by city """
         city = storage.get("City", id)
         if city is None:
@@ -23,7 +23,7 @@ def init_places():
         return jsonify(places)
 
     @app_views.route('/places/<id>', methods=['GET'], strict_slashes=False)
-    def get_place(id):
+    def get_place(id=None):
         '''get place by id'''
         place = storage.get("Place", id)
         if place is None:
@@ -31,7 +31,7 @@ def init_places():
         return jsonify(place.to_dict())
 
     @app_views.route('/places/<id>', methods=['DELETE'], strict_slashes=False)
-    def delete_place(id):
+    def delete_place(id=None):
         '''delete a place by id'''
         place = storage.get("Place", id)
         if place is None:
@@ -42,7 +42,7 @@ def init_places():
     @app_views.route(
                     '/cities/<id>/places',
                     methods=['POST'], strict_slashes=False)
-    def create_place_by_city(id):
+    def create_place_by_city(id=None):
         '''create a place'''
         city = storage.get("City", id)
         if city is None:
@@ -62,7 +62,7 @@ def init_places():
         return jsonify(storage.get("Place", place.id).to_dict()), 201
 
     @app_views.route('/places/<id>', methods=['PUT'], strict_slashes=False)
-    def update_place(id):
+    def update_place(id=None):
         '''update a place'''
         place = storage.get("Place", id)
         if place is None:
