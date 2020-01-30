@@ -45,11 +45,11 @@ def init_places():
                     methods=['POST'], strict_slashes=False)
     def create_place_by_city(id):
         '''create a place'''
+        if not request.json:
+            return jsonify({"error": "Not a JSON"}), 400
         city = storage.get("City", id)
         if city is None:
             abort(404)
-        if not request.json:
-            return jsonify({"error": "Not a JSON"}), 400
         if 'user_id' not in request.json:
             return jsonify({"error": "Missing user_id"}), 400
         user = storage.get("User", request.json['user_id'])
@@ -65,11 +65,11 @@ def init_places():
     @app_views.route('/places/<id>', methods=['PUT'], strict_slashes=False)
     def update_place(id):
         '''update a place'''
+        if not request.json:
+            return jsonify({"error": "Not a JSON"}), 400
         place = storage.get("Place", id)
         if place is None:
             abort(404)
-        if not request.json:
-            return jsonify({"error": "Not a JSON"}), 400
 
         for key, value in request.json.items():
             if (
