@@ -71,6 +71,9 @@ def init_places():
             return jsonify({"error": "Not a Json"}), 400
 
         for key, value in request.json.items():
-            setattr(place, key, value)
+            if key is 'id' or key is user_id or key is city_id:
+                pass
+            else:
+                setattr(place, key, value)
         storage.save()
         return jsonify(storage.get("Place", place.id).to_dict()), 200
