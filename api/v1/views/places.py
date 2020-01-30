@@ -71,7 +71,7 @@ def init_places():
             return jsonify({"error": "Not a Json"}), 400
 
         for key, value in request.json.items():
-            if key is 'id' or key is user_id or key is city_id:
+            if key is 'id' or key is 'user_id' or key is 'city_id':
                 pass
             else:
                 setattr(place, key, value)
