@@ -48,7 +48,7 @@ def init_amenities():
             return jsonify({"error": "Missing name"}), 400
         amenity = Amenity(**request.get_json())
         storage.new(amenity)
-        return jsonify(storage.get("amenity", amenity.id).to_dict()), 201
+        return jsonify(storage.get("Amenity", amenity.id).to_dict()), 201
 
     @app_views.route('/amenities/<amenity_id>', methods=['PUT'],
                      strict_slashes=False)
@@ -60,6 +60,9 @@ def init_amenities():
             return jsonify({"error": "Not a Json"}), 400
         amenity = storage.get("Amenity", str(amenity_id))
         for key, value in request.json.items():
-            setattr(amenity, key, value)
+            if (key == 'id' and key == 'created_at' and key == 'updated_at'):
+                pass
+            else:
+                setattr(amenity, key, value)
         storage.save()
         return jsonify(storage.get("Amenity", city.city_id).to_dict()), 200
