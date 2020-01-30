@@ -37,7 +37,7 @@ def init_places():
         place = storage.get("Place", id)
         if place is None:
             abort(404)
-        storage.delete(place)
+        storage.delete(storage.get("Place", id))
         return jsonify({}), 200
 
     @app_views.route(
