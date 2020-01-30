@@ -11,7 +11,7 @@ import json
 def init_amenities():
     from api.v1.views import app_views
 
-    @app_views.route('/amenities', methods=['GET'])
+    @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
     def get_all_amenities():
         """ Get all amenities"""
         if storage.get("Amenities") is not None:
@@ -22,7 +22,8 @@ def init_amenities():
         else:
             abort(404)
 
-    @app_views.route('/amenities/<amenity_id>', methods=['GET'])
+    @app_views.route('/amenities/<amenity_id>', methods=['GET'],
+                     strict_slashes=False)
     def get_amenity(amenity_id):
         """ Get amenity """
         amenity = storage.get("Amenity", str(amenity_id))
@@ -30,7 +31,8 @@ def init_amenities():
             return jsonify(city.to_dict())
         abort(404)
 
-    @app_views.route('/amenities/<amenity_id>', methods=['DELETE'])
+    @app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
+                     strict_slashes=False)
     def delete_amenity(amenity_id):
         """ Delete amenity """
         if amenity_id is not None:
@@ -40,7 +42,7 @@ def init_amenities():
                 abort(404)
         return jsonify({}), 200
 
-    @app_views.route('/amenities', methods=['POST'])
+    @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
     def create_amenity():
         """ Create states """
         if not request.json:
@@ -51,7 +53,8 @@ def init_amenities():
         storage.new(amenity)
         return jsonify(storage.get("amenity", amenity.id).to_dict()), 201
 
-    @app_views.route('/amenities/<amenity_id>', methods=['PUT'])
+    @app_views.route('/amenities/<amenity_id>', methods=['PUT'],
+                     strict_slashes=False)
     def update_amenities(amenity_id):
         """ Update amenities """
         if storage.get("Amenity", str(city_id)) is None:
