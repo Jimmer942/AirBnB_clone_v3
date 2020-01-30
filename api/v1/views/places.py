@@ -73,7 +73,7 @@ def init_places():
         for key, value in request.json.items():
             if (
                 key == 'id' or key == 'user_id' or
-                key == 'city_id' or key == 'place_id'
+                key == 'city_id'
             ):
                 pass
             else:
