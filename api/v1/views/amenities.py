@@ -54,7 +54,7 @@ def init_amenities():
                      strict_slashes=False)
     def update_amenities(amenity_id):
         """ Update amenities """
-        if storage.get("Amenity", str(city_id)) is None:
+        if storage.get("Amenity", str(amenity_id)) is None:
             abort(404)
         if not request.json:
             return jsonify({"error": "Not a Json"}), 400
@@ -64,5 +64,5 @@ def init_amenities():
                 pass
             else:
                 setattr(amenity, key, value)
-        storage.save()
+        amenity.save()
         return jsonify(storage.get("Amenity", city.city_id).to_dict()), 200
