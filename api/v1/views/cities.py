@@ -73,5 +73,5 @@ def init_cities():
         city = storage.get("City", str(city_id))
         for key, value in request.json.items():
             setattr(city, key, value)
-        storage.save()
+        city.save()
         return jsonify(storage.get("City", city.city_id).to_dict()), 200
