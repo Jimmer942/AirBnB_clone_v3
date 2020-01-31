@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """  Users RestFul API """
 
-from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
 from models.user import User
+
 
 def init_users():
     from api.v1.views import app_views
@@ -50,8 +50,8 @@ def init_users():
         storage.new(user)
         return jsonify(storage.get("User", user.id).to_dict()), 201
 
-   @app_views.route('/users/<user_id>', methods=['PUT'],
-                    strict_slashes=False)
+    @app_views.route('/users/<user_id>', methods=['PUT'],
+                     strict_slashes=False)
     def update_user(user_id):
         """ Update user """
         if storage.get("User", str(user_id)) is None:
@@ -60,8 +60,12 @@ def init_users():
             return jsonify({"error": "Not a Json"}), 400
         user = storage.get("User", str(user_id))
         for key, value in request.json.items():
-            if (key == 'id' or key == 'email' or key == 'created_at'
-                or key is not 'updated_at':
+            if (
+                    key == 'id' or
+                    key == 'email' or
+                    key == 'created_at' or
+                    key is not 'updated_at'
+            ):
                 pass
             else:
                 setattr(user, key, value)
